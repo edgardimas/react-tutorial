@@ -1,0 +1,39 @@
+JavaScript supports closures which means an inner function (e.g handleClick)
+has access to variables and functions defined in a outer function (e.g. Board ).
+
+The handleClick function can read the squares state and call the setSquares method
+because they are both defined inside of the Board function. 
+
+function Square({ value, onSquareClick }) {
+  return (
+    <button className="square" onClick={onSquareClick}>
+      {value}
+    </button>
+  );
+}
+
+Let's recap what happens when a user clicks the top left square on your board:
+
+1. Clicking on the upper left square runs the funciton that
+the button received as its on click prop from the square.
+the square component received that function as its onSquareClick prop from the Board.
+The Board component defined that function directly in the JSX. it calls handleClick with an argument of 0.
+
+2. handleClick uses the argument (0) to update the first element of the squares array from null to X
+
+3. the squares state of the board component was updatedm so the Board and all of its children re-render.
+This causes the value prop of the Square component with index 0 to change from null to X.  
+
+in the end the user sees that the upper left square has changed from empty to having a X agter clicking it. 
+
+NOTE---
+The DOM <button> element's onClick attribute has a special meaning to React because it is a built=in component. 
+For custom components like Square, the naming is up to you.
+You could give any name to the Square's onSquareClick prop or Board's handleClick function,
+and the code would work the same. 
+In Reacr, it's conventional to use onSomething names for props which represent events and handleSomething
+for the function definitions which handle those events.
+
+Why immutability is important.
+
+
